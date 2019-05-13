@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fake_push/src/domain/message.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
@@ -32,19 +33,17 @@ class Push {
   final StreamController<bool> _notificationsPermissionStreamController =
       StreamController<bool>.broadcast();
 
-  final StreamController<Map<dynamic, dynamic>> _messageStreamController =
-      StreamController<Map<dynamic, dynamic>>.broadcast();
+  final StreamController<Message> _messageStreamController =
+      StreamController<Message>.broadcast();
 
-  final StreamController<Map<dynamic, dynamic>> _notificationStreamController =
-      StreamController<Map<dynamic, dynamic>>.broadcast();
+  final StreamController<Message> _notificationStreamController =
+      StreamController<Message>.broadcast();
 
-  final StreamController<Map<dynamic, dynamic>>
-      _launchNotificationStreamController =
-      StreamController<Map<dynamic, dynamic>>.broadcast();
+  final StreamController<Message> _launchNotificationStreamController =
+      StreamController<Message>.broadcast();
 
-  final StreamController<Map<dynamic, dynamic>>
-      _resumeNotificationStreamController =
-      StreamController<Map<dynamic, dynamic>>.broadcast();
+  final StreamController<Message> _resumeNotificationStreamController =
+      StreamController<Message>.broadcast();
 
   Future<void> registerApp() async {
     _channel.setMethodCallHandler(_handleMethod);
@@ -56,19 +55,20 @@ class Push {
         _notificationsPermissionStreamController.add(call.arguments as bool);
         break;
       case _METHOD_ONMESSAGE:
-        _messageStreamController.add(call.arguments as Map<dynamic, dynamic>);
+        _messageStreamController.add(MessageSerializer()
+            .fromMap(call.arguments as Map<dynamic, dynamic>));
         break;
       case _METHOD_ONNOTIFICATION:
-        _notificationStreamController
-            .add(call.arguments as Map<dynamic, dynamic>);
+        _notificationStreamController.add(MessageSerializer()
+            .fromMap(call.arguments as Map<dynamic, dynamic>));
         break;
       case _METHOD_ONLAUNCHNOTIFICATION:
-        _launchNotificationStreamController
-            .add(call.arguments as Map<dynamic, dynamic>);
+        _launchNotificationStreamController.add(MessageSerializer()
+            .fromMap(call.arguments as Map<dynamic, dynamic>));
         break;
       case _METHOD_ONRESUMENOTIFICATION:
-        _resumeNotificationStreamController
-            .add(call.arguments as Map<dynamic, dynamic>);
+        _resumeNotificationStreamController.add(MessageSerializer()
+            .fromMap(call.arguments as Map<dynamic, dynamic>));
         break;
     }
   }
@@ -106,22 +106,22 @@ class Push {
   }
 
   /// 接收透传消息（静默消息）
-  Stream<Map<dynamic, dynamic>> message() {
+  Stream<Message> message() {
     return _messageStreamController.stream;
   }
 
   /// 接收通知消息
-  Stream<Map<dynamic, dynamic>> notification() {
+  Stream<Message> notification() {
     return _notificationStreamController.stream;
   }
 
   /// 接收通知栏点击事件 - 后台
-  Stream<Map<dynamic, dynamic>> launchNotification() {
+  Stream<Message> launchNotification() {
     return _launchNotificationStreamController.stream;
   }
 
   /// 接收通知栏点击事件 - 前台
-  Stream<Map<dynamic, dynamic>> resumeNotification() {
+  Stream<Message> resumeNotification() {
     return _resumeNotificationStreamController.stream;
   }
 

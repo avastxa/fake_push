@@ -38,8 +38,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    //noinspection GradleCompatible
-    implementation 'com.android.support:support-compat:27.1.1'
     implementation 'io.github.v7lin:xinge-push-android:4.3.2-beta+1'
     implementation 'io.github.v7lin:xinge-push-stub-android:4.3.2-beta'
 }

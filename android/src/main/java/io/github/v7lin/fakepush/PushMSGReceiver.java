@@ -43,7 +43,6 @@ public abstract class PushMSGReceiver extends BroadcastReceiver {
         XGPushClickedResult message = (XGPushClickedResult) intent.getSerializableExtra("tag.tpush.NOTIFIC");
         if (message != null) {
             Map<String, Object> map = new HashMap<>();
-            map.put(FakePushPlugin.ARGUMENT_KEY_RESULT_MSGID, message.getMsgId());
             map.put(FakePushPlugin.ARGUMENT_KEY_RESULT_TITLE, message.getTitle());
             map.put(FakePushPlugin.ARGUMENT_KEY_RESULT_CONTENT, message.getContent());
             map.put(FakePushPlugin.ARGUMENT_KEY_RESULT_CUSTOMCONTENT, message.getCustomContent());
@@ -78,7 +77,6 @@ public abstract class PushMSGReceiver extends BroadcastReceiver {
 
     public static void sendNotification(Context context, XGPushShowedResult message) {
         Map<String, Object> map = new HashMap<>();
-        map.put(FakePushPlugin.ARGUMENT_KEY_RESULT_MSGID, message.getMsgId());
         map.put(FakePushPlugin.ARGUMENT_KEY_RESULT_TITLE, message.getTitle());
         map.put(FakePushPlugin.ARGUMENT_KEY_RESULT_CONTENT, message.getContent());
         map.put(FakePushPlugin.ARGUMENT_KEY_RESULT_CUSTOMCONTENT, message.getCustomContent());

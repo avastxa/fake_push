@@ -11,7 +11,6 @@ import com.tencent.android.tpush.XGPushTextMessage;
 import io.github.v7lin.fakepush.PushMSGReceiver;
 
 public class XinGeMessageReceiver extends XGPushBaseReceiver {
-
     @Override
     public void onRegisterResult(Context context, int errorCode, XGPushRegisterResult message) {
         // 注册的回调

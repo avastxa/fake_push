@@ -35,7 +35,9 @@ class MyApp extends StatelessWidget {
     return PushProvider(
       push: push,
       child: MaterialApp(
-        home: Home(),
+        home: Home(
+          push: push,
+        ),
       ),
     );
   }
@@ -46,6 +48,13 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
+  Home({
+    Key key,
+    @required this.push,
+  }) : super(key: key);
+
+  final Push push;
+
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
@@ -53,43 +62,71 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  StreamSubscription<Message> _message;
+  StreamSubscription<Message> _notification;
+  StreamSubscription<Message> _launchNotification;
+  StreamSubscription<Message> _resumeNotification;
+
+  @override
+  void initState() {
+    super.initState();
+    _message = widget.push.message().listen(_handleMessage);
+    _notification = widget.push.notification().listen(_handleNotification);
+    _launchNotification =
+        widget.push.launchNotification().listen(_handleLaunchNotification);
+    _resumeNotification =
+        widget.push.resumeNotification().listen(_handleResumeNotification);
+  }
+
+  @override
+  void dispose() {
+    if (_message != null) {
+      _message.cancel();
+    }
+    if (_notification != null) {
+      _notification.cancel();
+    }
+    if (_launchNotification != null) {
+      _launchNotification.cancel();
+    }
+    if (_resumeNotification != null) {
+      _resumeNotification.cancel();
+    }
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return PushWidget(
-      push: PushProvider.of(context).push,
-      messageHandler: _handleMessage,
-      notificationHandler: _handleNotification,
-      launchNotificationHandler: _handleLaunchNotificationHandler,
-      resumeNotificationHandler: _handleResumeNotificationHandler,
-      builder: (BuildContext context) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Fake Push Demo'),
-          ),
-          body: Center(
-            child: GestureDetector(
-              child: Text('${Platform.operatingSystem}'),
-              onTap: () {},
-            ),
-          ),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Fake Push Demo'),
+      ),
+      body: Center(
+        child: GestureDetector(
+          child: Text('${Platform.operatingSystem}'),
+          onTap: () {},
+        ),
+      ),
     );
   }
 
-  void _handleMessage(Map<dynamic, dynamic> map) {
-    print('message $map');
+  void _handleMessage(Message message) {
+    print(
+        'message: ${message.title} - ${message.content} - ${message.customContent}');
   }
 
-  void _handleNotification(Map<dynamic, dynamic> map) {
-    print('notification $map');
+  void _handleNotification(Message notification) {
+    print(
+        'notification: ${notification.title} - ${notification.content} - ${notification.customContent}');
   }
 
-  void _handleLaunchNotificationHandler(Map<dynamic, dynamic> map) {
-    print('launchNotification $map');
+  void _handleLaunchNotification(Message notification) {
+    print(
+        'launchNotification: ${notification.title} - ${notification.content} - ${notification.customContent}');
   }
 
-  void _handleResumeNotificationHandler(Map<dynamic, dynamic> map) {
-    print('resumeNotification $map');
+  void _handleResumeNotification(Message notification) {
+    print(
+        'resumeNotification: ${notification.title} - ${notification.content} - ${notification.customContent}');
   }
 }

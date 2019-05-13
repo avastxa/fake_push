@@ -44,7 +44,6 @@ static NSString * const ARGUMENT_KEY_ENABLEDEBUG = @"enableDebug";
 static NSString * const ARGUMENT_KEY_ACCOUNT = @"account";
 static NSString * const ARGUMENT_KEY_TAGS = @"tags";
 
-static NSString * const ARGUMENT_KEY_RESULT_MSGID = @"msgId";
 static NSString * const ARGUMENT_KEY_RESULT_TITLE = @"title";
 static NSString * const ARGUMENT_KEY_RESULT_CONTENT = @"content";
 static NSString * const ARGUMENT_KEY_RESULT_CUSTOMCONTENT = @"customContent";
@@ -216,10 +215,8 @@ static NSString * const SHAREDPREF_KEY_HAS_BEEN_DETERMINED = @"fake_push_has_bee
 
 - (NSDictionary *)parseNotification:(NSDictionary *)userInfo {
     NSDictionary *alert = userInfo[@"aps"][@"alert"];
-    NSDictionary *xg = userInfo[@"xg"];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    dict[ARGUMENT_KEY_RESULT_MSGID] = xg[@"msgid"];
     dict[ARGUMENT_KEY_RESULT_TITLE] = alert[@"title"] ?: @"";
     dict[ARGUMENT_KEY_RESULT_CONTENT] = alert[@"body"] ?: @"";
     dict[ARGUMENT_KEY_RESULT_CUSTOMCONTENT] = [self parseCustomContent:userInfo] ?: @"";
@@ -235,6 +232,10 @@ static NSString * const SHAREDPREF_KEY_HAS_BEEN_DETERMINED = @"fake_push_has_bee
         if (![key isEqual: @"xg"] && ![key isEqual: @"aps"]) {
             customContent[key] = userInfo[key];
         }
+    }
+    
+    if (customContent.count == 0) {
+        return nil;
     }
     
     NSError *error;

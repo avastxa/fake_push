@@ -1,23 +1,32 @@
 # fake_push
 
 [![Build Status](https://cloud.drone.io/api/badges/v7lin/fake_push/status.svg)](https://cloud.drone.io/v7lin/fake_push)
-[![GitHub tag](https://img.shields.io/github/tag/v7lin/fake_push.svg)](https://github.com/v7lin/fake_push/releases)
-[![pub package](https://img.shields.io/pub/v/fake_push.svg)](https://pub.dartlang.org/packages/fake_push)
+[![Codecov](https://codecov.io/gh/v7lin/fake_push/branch/master/graph/badge.svg)](https://codecov.io/gh/v7lin/fake_push)
+[![GitHub Tag](https://img.shields.io/github/tag/v7lin/fake_push.svg)](https://github.com/v7lin/fake_push/releases)
+[![Pub Package](https://img.shields.io/pub/v/fake_push.svg)](https://pub.dartlang.org/packages/fake_push)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/v7lin/fake_push/blob/master/LICENSE)
 
 flutter版腾讯(信鸽)推送SDK
 
 ## fake 系列 libraries
 
-1. [flutter版okhttp3](https://github.com/v7lin/fake_http)
-2. [flutter版微信SDK](https://github.com/v7lin/fake_wechat)
-3. [flutter版腾讯(QQ)SDK](https://github.com/v7lin/fake_tencent)
-4. [flutter版新浪微博SDK](https://github.com/v7lin/fake_weibo)
-5. [flutter版支付宝SDK](https://github.com/v7lin/fake_alipay)
-6. [flutter版腾讯(信鸽)推送SDK](https://github.com/v7lin/fake_push)
+* [flutter版okhttp3](https://github.com/v7lin/fake_http)
+* [flutter版微信SDK](https://github.com/v7lin/fake_wechat)
+* [flutter版腾讯(QQ)SDK](https://github.com/v7lin/fake_tencent)
+* [flutter版新浪微博SDK](https://github.com/v7lin/fake_weibo)
+* [flutter版支付宝SDK](https://github.com/v7lin/fake_alipay)
+* [flutter版腾讯(信鸽)推送SDK](https://github.com/v7lin/fake_push)
 
 ## dart/flutter 私服
 
-[simple_pub_server](https://github.com/v7lin/simple_pub_server)
+* [simple_pub_server](https://github.com/v7lin/simple_pub_server)
+
+## docs
+
+* [信鸽推送](https://xg.qq.com/)
+* [华为推送](https://developer.huawei.com/consumer/cn/console#/openCard/AppService/6)
+* [小米推送](https://dev.mi.com/console/appservice/push.html)
+* [魅族推送](https://open.flyme.cn/open-web/views/push.html)
 
 ## android
 

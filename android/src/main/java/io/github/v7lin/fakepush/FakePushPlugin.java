@@ -10,16 +10,12 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.app.NotificationManagerCompat;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +28,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import io.flutter.view.FlutterNativeView;
+import io.github.v7lin.fakepush.util.NotificationManagerCompat;
 import xinge.push.android.XinGeConstants;
 
 /**
@@ -70,7 +67,6 @@ public class FakePushPlugin implements MethodCallHandler, PluginRegistry.NewInte
     private static final String ARGUMENT_KEY_ACCOUNT = "account";
     private static final String ARGUMENT_KEY_TAGS = "tags";
 
-    public static final String ARGUMENT_KEY_RESULT_MSGID = "msgId";
     public static final String ARGUMENT_KEY_RESULT_TITLE = "title";
     public static final String ARGUMENT_KEY_RESULT_CONTENT = "content";
     public static final String ARGUMENT_KEY_RESULT_CUSTOMCONTENT = "customContent";
